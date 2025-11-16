@@ -49,7 +49,7 @@ class ChunkController extends Controller
 
         // Find session
         $session = $this->sessionService->findSession($sessionId);
-        
+
         if (!$session) {
             return response()->json([
                 'success' => false,
