@@ -1,8 +1,8 @@
 <?php
 
-namespace Medusa\FluxUpload\Services;
+namespace Wramirez83\FluxUpload\Services;
 
-use Medusa\FluxUpload\Models\UploadSession;
+use Wramirez83\FluxUpload\Models\UploadSession;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;

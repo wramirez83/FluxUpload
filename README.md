@@ -235,7 +235,7 @@ uploader.cancel();
 ### Uso en PHP (Backend)
 
 ```php
-use Medusa\FluxUpload\Facades\FluxUpload;
+use Wramirez83\FluxUpload\Facades\FluxUpload;
 
 // Obtener servicios
 $uploadService = FluxUpload::getUploadService();
@@ -266,7 +266,7 @@ FluxUpload emite eventos que puedes escuchar:
 Se emite cuando una subida se completa exitosamente.
 
 ```php
-use Medusa\FluxUpload\Events\FluxUploadCompleted;
+use Wramirez83\FluxUpload\Events\FluxUploadCompleted;
 use Illuminate\Support\Facades\Event;
 
 Event::listen(FluxUploadCompleted::class, function (FluxUploadCompleted $event) {
@@ -283,7 +283,7 @@ Event::listen(FluxUploadCompleted::class, function (FluxUploadCompleted $event) 
 Se emite cuando una subida falla.
 
 ```php
-use Medusa\FluxUpload\Events\FluxUploadFailed;
+use Wramirez83\FluxUpload\Events\FluxUploadFailed;
 
 Event::listen(FluxUploadFailed::class, function (FluxUploadFailed $event) {
     $session = $event->session;
@@ -301,7 +301,7 @@ Event::listen(FluxUploadFailed::class, function (FluxUploadFailed $event) {
 Se emite cada vez que se recibe un chunk (opcional).
 
 ```php
-use Medusa\FluxUpload\Events\FluxUploadChunkReceived;
+use Wramirez83\FluxUpload\Events\FluxUploadChunkReceived;
 
 Event::listen(FluxUploadChunkReceived::class, function (FluxUploadChunkReceived $event) {
     $session = $event->session;

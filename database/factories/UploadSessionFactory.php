@@ -1,8 +1,8 @@
 <?php
 
-namespace Medusa\FluxUpload\Database\Factories;
+namespace Wramirez83\FluxUpload\Database\Factories;
 
-use Medusa\FluxUpload\Models\UploadSession;
+use Wramirez83\FluxUpload\Models\UploadSession;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Carbon\Carbon;

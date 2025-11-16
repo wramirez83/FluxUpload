@@ -1,9 +1,9 @@
 <?php
 
-namespace Medusa\FluxUpload;
+namespace Wramirez83\FluxUpload;
 
 use Illuminate\Support\ServiceProvider;
-use Medusa\FluxUpload\Commands\CleanExpiredSessionsCommand;
+use Wramirez83\FluxUpload\Commands\CleanExpiredSessionsCommand;
 
 class FluxUploadServiceProvider extends ServiceProvider
 {

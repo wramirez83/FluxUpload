@@ -1,9 +1,9 @@
 <?php
 
-namespace Medusa\FluxUpload\Tests;
+namespace Wramirez83\FluxUpload\Tests;
 
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
-use Medusa\FluxUpload\FluxUploadServiceProvider;
+use Wramirez83\FluxUpload\FluxUploadServiceProvider;
 
 abstract class TestCase extends OrchestraTestCase
 {

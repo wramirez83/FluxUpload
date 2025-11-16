@@ -1,10 +1,10 @@
 <?php
 
-namespace Medusa\FluxUpload\Services;
+namespace Wramirez83\FluxUpload\Services;
 
-use Medusa\FluxUpload\Models\UploadSession;
-use Medusa\FluxUpload\Models\Chunk;
-use Medusa\FluxUpload\Events\FluxUploadChunkReceived;
+use Wramirez83\FluxUpload\Models\UploadSession;
+use Wramirez83\FluxUpload\Models\Chunk;
+use Wramirez83\FluxUpload\Events\FluxUploadChunkReceived;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Event;

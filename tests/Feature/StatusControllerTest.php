@@ -1,10 +1,10 @@
 <?php
 
-namespace Medusa\FluxUpload\Tests\Feature;
+namespace Wramirez83\FluxUpload\Tests\Feature;
 
-use Medusa\FluxUpload\Tests\TestCase;
-use Medusa\FluxUpload\Models\UploadSession;
-use Medusa\FluxUpload\Models\Chunk;
+use Wramirez83\FluxUpload\Tests\TestCase;
+use Wramirez83\FluxUpload\Models\UploadSession;
+use Wramirez83\FluxUpload\Models\Chunk;
 
 class StatusControllerTest extends TestCase
 {

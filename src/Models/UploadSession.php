@@ -1,11 +1,11 @@
 <?php
 
-namespace Medusa\FluxUpload\Models;
+namespace Wramirez83\FluxUpload\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Medusa\FluxUpload\Database\Factories\UploadSessionFactory;
+use Wramirez83\FluxUpload\Database\Factories\UploadSessionFactory;
 use Carbon\Carbon;
 
 class UploadSession extends Model

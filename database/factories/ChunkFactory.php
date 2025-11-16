@@ -1,9 +1,9 @@
 <?php
 
-namespace Medusa\FluxUpload\Database\Factories;
+namespace Wramirez83\FluxUpload\Database\Factories;
 
-use Medusa\FluxUpload\Models\Chunk;
-use Medusa\FluxUpload\Models\UploadSession;
+use Wramirez83\FluxUpload\Models\Chunk;
+use Wramirez83\FluxUpload\Models\UploadSession;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Carbon\Carbon;
 

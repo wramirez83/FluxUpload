@@ -1,10 +1,10 @@
 <?php
 
-namespace Medusa\FluxUpload\Http\Controllers;
+namespace Wramirez83\FluxUpload\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Medusa\FluxUpload\Services\SessionService;
+use Wramirez83\FluxUpload\Services\SessionService;
 use Illuminate\Support\Facades\Validator;
 
 class InitController extends Controller

@@ -1,9 +1,9 @@
 <?php
 
-namespace Medusa\FluxUpload\Events;
+namespace Wramirez83\FluxUpload\Events;
 
-use Medusa\FluxUpload\Models\UploadSession;
-use Medusa\FluxUpload\Models\Chunk;
+use Wramirez83\FluxUpload\Models\UploadSession;
+use Wramirez83\FluxUpload\Models\Chunk;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 

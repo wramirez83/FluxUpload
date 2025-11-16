@@ -1,11 +1,11 @@
 <?php
 
-namespace Medusa\FluxUpload\Tests\Unit;
+namespace Wramirez83\FluxUpload\Tests\Unit;
 
-use Medusa\FluxUpload\Tests\TestCase;
-use Medusa\FluxUpload\Services\ChunkService;
-use Medusa\FluxUpload\Models\UploadSession;
-use Medusa\FluxUpload\Models\Chunk;
+use Wramirez83\FluxUpload\Tests\TestCase;
+use Wramirez83\FluxUpload\Services\ChunkService;
+use Wramirez83\FluxUpload\Models\UploadSession;
+use Wramirez83\FluxUpload\Models\Chunk;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 

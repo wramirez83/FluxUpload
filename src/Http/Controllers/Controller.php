@@ -1,6 +1,6 @@
 <?php
 
-namespace Medusa\FluxUpload\Http\Controllers;
+namespace Wramirez83\FluxUpload\Http\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
 

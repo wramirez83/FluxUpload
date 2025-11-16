@@ -1,9 +1,9 @@
 <?php
 
-namespace Medusa\FluxUpload\Commands;
+namespace Wramirez83\FluxUpload\Commands;
 
 use Illuminate\Console\Command;
-use Medusa\FluxUpload\Services\SessionService;
+use Wramirez83\FluxUpload\Services\SessionService;
 
 class CleanExpiredSessionsCommand extends Command
 {

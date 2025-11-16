@@ -1,8 +1,8 @@
 <?php
 
-namespace Medusa\FluxUpload\Events;
+namespace Wramirez83\FluxUpload\Events;
 
-use Medusa\FluxUpload\Models\UploadSession;
+use Wramirez83\FluxUpload\Models\UploadSession;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 

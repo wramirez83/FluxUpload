@@ -227,7 +227,7 @@ export default FileUploader;
 
 namespace App\Listeners;
 
-use Medusa\FluxUpload\Events\FluxUploadCompleted;
+use Wramirez83\FluxUpload\Events\FluxUploadCompleted;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
@@ -256,7 +256,7 @@ class ProcessUploadedFile
 Registrar el listener en `app/Providers/EventServiceProvider.php`:
 
 ```php
-use Medusa\FluxUpload\Events\FluxUploadCompleted;
+use Wramirez83\FluxUpload\Events\FluxUploadCompleted;
 use App\Listeners\ProcessUploadedFile;
 
 protected $listen = [
@@ -273,7 +273,7 @@ protected $listen = [
 
 namespace App\Http\Controllers;
 
-use Medusa\FluxUpload\Facades\FluxUpload;
+use Wramirez83\FluxUpload\Facades\FluxUpload;
 use Illuminate\Http\Request;
 
 class CustomUploadController extends Controller

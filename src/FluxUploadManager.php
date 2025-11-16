@@ -1,10 +1,10 @@
 <?php
 
-namespace Medusa\FluxUpload;
+namespace Wramirez83\FluxUpload;
 
-use Medusa\FluxUpload\Services\UploadService;
-use Medusa\FluxUpload\Services\SessionService;
-use Medusa\FluxUpload\Services\ChunkService;
+use Wramirez83\FluxUpload\Services\UploadService;
+use Wramirez83\FluxUpload\Services\SessionService;
+use Wramirez83\FluxUpload\Services\ChunkService;
 
 class FluxUploadManager
 {

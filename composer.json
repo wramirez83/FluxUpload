@@ -1,5 +1,5 @@
 {
-    "name": "medusa/fluxupload",
+    "name": "wramirez83/fluxupload",
     "description": "Laravel package for large file uploads using chunking with automatic resumption",
     "type": "library",
     "version": "1.0.0",
@@ -13,8 +13,8 @@
     ],
     "authors": [
         {
-            "name": "Medusa",
-            "email": "dev@medusa.com"
+            "name": "Wramirez83",
+            "email": "dev@wramirez83.com"
         }
     ],
     "require": {
@@ -32,13 +32,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Medusa\\FluxUpload\\": "src/",
-            "Medusa\\FluxUpload\\Database\\Factories\\": "database/factories/"
+            "Wramirez83\\FluxUpload\\": "src/",
+            "Wramirez83\\FluxUpload\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Medusa\\FluxUpload\\Tests\\": "tests/"
+            "Wramirez83\\FluxUpload\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -48,10 +48,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Medusa\\FluxUpload\\FluxUploadServiceProvider"
+                "Wramirez83\\FluxUpload\\FluxUploadServiceProvider"
             ],
             "aliases": {
-                "FluxUpload": "Medusa\\FluxUpload\\Facades\\FluxUpload"
+                "FluxUpload": "Wramirez83\\FluxUpload\\Facades\\FluxUpload"
             }
         }
     },

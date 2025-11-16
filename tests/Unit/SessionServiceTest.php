@@ -1,10 +1,10 @@
 <?php
 
-namespace Medusa\FluxUpload\Tests\Unit;
+namespace Wramirez83\FluxUpload\Tests\Unit;
 
-use Medusa\FluxUpload\Tests\TestCase;
-use Medusa\FluxUpload\Services\SessionService;
-use Medusa\FluxUpload\Models\UploadSession;
+use Wramirez83\FluxUpload\Tests\TestCase;
+use Wramirez83\FluxUpload\Services\SessionService;
+use Wramirez83\FluxUpload\Models\UploadSession;
 use Carbon\Carbon;
 
 class SessionServiceTest extends TestCase

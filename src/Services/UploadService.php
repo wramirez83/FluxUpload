@@ -1,13 +1,13 @@
 <?php
 
-namespace Medusa\FluxUpload\Services;
+namespace Wramirez83\FluxUpload\Services;
 
-use Medusa\FluxUpload\Models\UploadSession;
-use Medusa\FluxUpload\Models\Chunk;
+use Wramirez83\FluxUpload\Models\UploadSession;
+use Wramirez83\FluxUpload\Models\Chunk;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Event;
-use Medusa\FluxUpload\Events\FluxUploadCompleted;
-use Medusa\FluxUpload\Events\FluxUploadFailed;
+use Wramirez83\FluxUpload\Events\FluxUploadCompleted;
+use Wramirez83\FluxUpload\Events\FluxUploadFailed;
 use Exception;
 
 class UploadService
