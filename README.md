@@ -13,14 +13,14 @@ FluxUpload es un paquete Laravel que permite la subida de archivos grandes (supe
 - ✅ Cliente JavaScript incluido
 - ✅ Eventos para integración
 - ✅ Limpieza automática de sesiones expiradas
-- ✅ Compatible con Laravel 10, 11 y 12
+- ✅ Compatible con Laravel 12
 
 ## 📦 Instalación
 
 ### Requisitos
 
 - PHP 8.1 o superior
-- Laravel 10, 11 o 12
+- Laravel 12
 - Extensiones PHP: `fileinfo`, `mbstring`, `openssl`, `json`
 
 ### Instalación vía Composer
