@@ -2,7 +2,6 @@
     "name": "wramirez83/fluxupload",
     "description": "Laravel package for large file uploads using chunking with automatic resumption",
     "type": "library",
-    "version": "1.0.0",
     "license": "MIT",
     "keywords": [
         "laravel",
