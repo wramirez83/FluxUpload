@@ -22,6 +22,7 @@ class FluxUpload {
         this.failedChunks = new Map();
         this.isUploading = false;
         this.isPaused = false;
+        this.headers = options.headers || {}; // Store headers for all requests
     }
 
     /**
@@ -31,6 +32,11 @@ class FluxUpload {
         this.file = file;
         this.chunkSize = options.chunkSize || this.chunkSize;
         this.totalChunks = Math.ceil(file.size / this.chunkSize);
+
+        // Merge headers from options with stored headers
+        if (options.headers) {
+            this.headers = { ...this.headers, ...options.headers };
+        }
 
         const initData = {
             filename: file.name,
@@ -47,7 +53,7 @@ class FluxUpload {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
-                    ...(options.headers || {}),
+                    ...this.headers,
                 },
                 body: JSON.stringify(initData),
             });
@@ -176,14 +182,16 @@ class FluxUpload {
 
         const formData = new FormData();
         formData.append('session_id', this.sessionId);
-        formData.append('chunk_index', chunkIndex);
-        formData.append('chunk', chunk, `chunk_${chunkIndex}`);
+        formData.append('chunk_index', chunkIndex.toString());
+        // Append the Blob directly - FormData handles Blobs correctly
+        formData.append('chunk', chunk, `chunk_${chunkIndex}.bin`);
 
         try {
             const response = await fetch(`${this.baseUrl}/chunk`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
+                    ...this.headers,
                 },
                 body: formData,
             });
@@ -191,7 +199,21 @@ class FluxUpload {
             const data = await response.json();
 
             if (!data.success) {
-                throw new Error(data.error || 'Chunk upload failed');
+                // Handle both 'error' and 'errors' response formats
+                let errorMessage = data.error;
+                if (!errorMessage && data.errors) {
+                    // Format validation errors
+                    const errorMessages = [];
+                    for (const field in data.errors) {
+                        if (Array.isArray(data.errors[field])) {
+                            errorMessages.push(...data.errors[field]);
+                        } else {
+                            errorMessages.push(data.errors[field]);
+                        }
+                    }
+                    errorMessage = errorMessages.join(', ') || 'Chunk upload failed';
+                }
+                throw new Error(errorMessage || 'Chunk upload failed');
             }
 
             this.uploadedChunks.add(chunkIndex);
@@ -227,6 +249,7 @@ class FluxUpload {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
+                ...this.headers,
             },
         });
 

@@ -8,6 +8,7 @@ use Wramirez83\FluxUpload\Events\FluxUploadChunkReceived;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 
 class ChunkService
@@ -102,11 +103,21 @@ class ChunkService
     {
         // Validate chunk index
         if ($chunkIndex < 0 || $chunkIndex >= $session->total_chunks) {
+            \Log::warning('FluxUpload: Invalid chunk index', [
+                'session_id' => $session->session_id,
+                'chunk_index' => $chunkIndex,
+                'total_chunks' => $session->total_chunks,
+            ]);
             return false;
         }
 
-        // Basic validation: chunk must be positive and not exceed chunk_size
-        if ($chunkSize <= 0 || $chunkSize > $session->chunk_size) {
+        // Basic validation: chunk must be positive
+        if ($chunkSize <= 0) {
+            \Log::warning('FluxUpload: Chunk size is zero or negative', [
+                'session_id' => $session->session_id,
+                'chunk_index' => $chunkIndex,
+                'chunk_size' => $chunkSize,
+            ]);
             return false;
         }
         
@@ -115,10 +126,32 @@ class ChunkService
         
         // Last chunk can be smaller or equal to expected size
         if ($chunkIndex === $session->total_chunks - 1) {
+            if ($chunkSize > $expectedSize) {
+                \Log::warning('FluxUpload: Last chunk size exceeds expected', [
+                    'session_id' => $session->session_id,
+                    'chunk_index' => $chunkIndex,
+                    'chunk_size' => $chunkSize,
+                    'expected_size' => $expectedSize,
+                ]);
+            }
             return $chunkSize <= $expectedSize;
         }
         
         // For non-last chunks, allow small tolerance (1 byte) for rounding errors
+        // But also allow slightly larger chunks (up to chunk_size + 1) for network variations
+        $maxAllowedSize = $session->chunk_size + 1;
+        if ($chunkSize > $maxAllowedSize) {
+            \Log::warning('FluxUpload: Chunk size exceeds maximum allowed', [
+                'session_id' => $session->session_id,
+                'chunk_index' => $chunkIndex,
+                'chunk_size' => $chunkSize,
+                'expected_size' => $expectedSize,
+                'max_allowed' => $maxAllowedSize,
+            ]);
+            return false;
+        }
+        
+        // Allow tolerance of ±1 byte for rounding errors
         return abs($chunkSize - $expectedSize) <= 1;
     }
 

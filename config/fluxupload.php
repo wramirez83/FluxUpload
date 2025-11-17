@@ -6,20 +6,20 @@ return [
     | Chunk Size
     |--------------------------------------------------------------------------
     |
-    | Default chunk size in bytes. Recommended: 5MB (5242880 bytes)
+    | Default chunk size in bytes. Recommended: 2MB (2097152 bytes) for v3.0.0
     |
     */
-    'chunk_size' => env('FLUXUPLOAD_CHUNK_SIZE', 5242880),
+    'chunk_size' => env('FLUXUPLOAD_CHUNK_SIZE', 2097152),
 
     /*
     |--------------------------------------------------------------------------
     | Max File Size
     |--------------------------------------------------------------------------
     |
-    | Maximum file size in bytes. Default: 5GB (5368709120 bytes)
+    | Maximum file size in bytes. Default: 25GB (26843545600 bytes) for v3.0.0
     |
     */
-    'max_file_size' => env('FLUXUPLOAD_MAX_FILE_SIZE', 5368709120),
+    'max_file_size' => env('FLUXUPLOAD_MAX_FILE_SIZE', 26843545600),
 
     /*
     |--------------------------------------------------------------------------

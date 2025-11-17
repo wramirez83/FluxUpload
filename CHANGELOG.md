@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2025-11-17
+
+### Changed
+- **Default chunk size**: Reduced from 5MB (5242880 bytes) to 2MB (2097152 bytes) for better compatibility with PHP `upload_max_filesize` limits
+- **Default max file size**: Increased from 5GB to 25GB (26843545600 bytes)
+- Improved error handling and validation
+- Enhanced chunk upload reliability
+
+### Fixed
+- Fixed chunk upload failures when `upload_max_filesize` is 2M or less
+- Improved multipart/form-data parsing for chunk uploads
+- Better error messages for upload failures
+
+### Improved
+- Better compatibility with various PHP configurations
+- Enhanced documentation with comprehensive examples
+- Improved JavaScript client error handling
+
 ## [2.0.0] - 2025-11-16
 
 ### Changed

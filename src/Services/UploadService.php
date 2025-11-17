@@ -40,45 +40,68 @@ class UploadService
             $disk = Storage::disk($session->storage_disk);
             $finalPath = $this->generateFinalPath($session);
             
-            // Open output stream
-            $outputStream = fopen('php://temp', 'r+');
+            // Ensure directory exists
+            $finalDir = dirname($disk->path($finalPath));
+            if (!is_dir($finalDir)) {
+                @mkdir($finalDir, 0755, true);
+            }
+            
+            // For large files, write directly to final location instead of using php://temp
+            // This avoids loading entire file into memory
+            $finalFilePath = $disk->path($finalPath);
+            $outputStream = fopen($finalFilePath, 'wb');
             if (!$outputStream) {
-                throw new Exception('Could not create output stream');
+                throw new Exception('Could not create output file: ' . $finalFilePath);
             }
 
-            // Stream chunks into output
+            // Stream chunks directly into final file
+            $totalBytesWritten = 0;
             foreach ($chunks as $chunk) {
                 if (!file_exists($chunk->chunk_path)) {
-                    throw new Exception("Chunk {$chunk->chunk_index} file not found");
+                    fclose($outputStream);
+                    @unlink($finalFilePath);
+                    throw new Exception("Chunk {$chunk->chunk_index} file not found at: {$chunk->chunk_path}");
                 }
 
-                $chunkStream = fopen($chunk->chunk_path, 'r');
+                $chunkStream = fopen($chunk->chunk_path, 'rb');
                 if (!$chunkStream) {
-                    throw new Exception("Could not open chunk {$chunk->chunk_index}");
+                    fclose($outputStream);
+                    @unlink($finalFilePath);
+                    throw new Exception("Could not open chunk {$chunk->chunk_index} at: {$chunk->chunk_path}");
                 }
 
-                stream_copy_to_stream($chunkStream, $outputStream);
+                $bytesCopied = stream_copy_to_stream($chunkStream, $outputStream);
                 fclose($chunkStream);
+                
+                if ($bytesCopied === false || $bytesCopied === 0) {
+                    fclose($outputStream);
+                    @unlink($finalFilePath);
+                    throw new Exception("Failed to copy chunk {$chunk->chunk_index} content");
+                }
+                
+                $totalBytesWritten += $bytesCopied;
             }
 
-            // Rewind output stream
-            rewind($outputStream);
+            fclose($outputStream);
 
-            // Calculate hash if needed
+            // Verify file size matches expected
+            $actualSize = filesize($finalFilePath);
+            if ($actualSize !== $session->total_size) {
+                @unlink($finalFilePath);
+                throw new Exception("File size mismatch. Expected: {$session->total_size}, Got: {$actualSize}");
+            }
+
+            // Calculate hash if needed (read file again for hash calculation)
             $hash = null;
             if (config('fluxupload.validate_hash', false)) {
-                $hash = $this->calculateStreamHash($outputStream, $session->hash_algorithm);
-                rewind($outputStream);
+                $hash = hash_file($session->hash_algorithm, $finalFilePath);
 
                 // Validate hash if provided
                 if ($session->hash && $hash !== $session->hash) {
-                    throw new Exception('File hash validation failed');
+                    @unlink($finalFilePath);
+                    throw new Exception('File hash validation failed. Expected: ' . $session->hash . ', Got: ' . $hash);
                 }
             }
-
-            // Store final file
-            $disk->put($finalPath, stream_get_contents($outputStream));
-            fclose($outputStream);
 
             // Update session
             $session->update([

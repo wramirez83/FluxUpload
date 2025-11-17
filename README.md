@@ -1,10 +1,10 @@
-# FluxUpload - Laravel Package for Large File Uploads
+# FluxUpload v3.0.0 - Laravel Package for Large File Uploads
 
 FluxUpload es un paquete Laravel que permite la subida de archivos grandes (superiores a 1GB) mediante chunking (división en partes) con capacidad de reanudación automática.
 
 ## 📋 Características
 
-- ✅ Subida de archivos grandes (hasta 5GB+)
+- ✅ Subida de archivos grandes (hasta 25GB)
 - ✅ Chunking automático (división en partes)
 - ✅ Reanudación automática de cargas interrumpidas
 - ✅ Validación de integridad mediante hash (opcional)
@@ -26,8 +26,10 @@ FluxUpload es un paquete Laravel que permite la subida de archivos grandes (supe
 ### Instalación vía Composer
 
 ```bash
-composer require medusa/fluxupload
+composer require wramirez83/fluxupload
 ```
+
+**Versión actual**: 3.0.0
 
 ### Publicar configuración y migraciones
 
@@ -53,11 +55,11 @@ php artisan vendor:publish --tag=fluxupload-assets
 El archivo de configuración se encuentra en `config/fluxupload.php`. Puedes configurar:
 
 ```php
-// Tamaño de chunk por defecto (5MB)
-'chunk_size' => env('FLUXUPLOAD_CHUNK_SIZE', 5242880),
+// Tamaño de chunk por defecto (2MB en v3.0.0)
+'chunk_size' => env('FLUXUPLOAD_CHUNK_SIZE', 2097152),
 
-// Tamaño máximo de archivo (5GB)
-'max_file_size' => env('FLUXUPLOAD_MAX_FILE_SIZE', 5368709120),
+// Tamaño máximo de archivo (25GB en v3.0.0)
+'max_file_size' => env('FLUXUPLOAD_MAX_FILE_SIZE', 26843545600),
 
 // Expiración de sesiones (24 horas)
 'session_expiration_hours' => env('FLUXUPLOAD_SESSION_EXPIRATION', 24),
@@ -83,8 +85,8 @@ El archivo de configuración se encuentra en `config/fluxupload.php`. Puedes con
 Puedes configurar el paquete mediante variables de entorno en tu archivo `.env`:
 
 ```env
-FLUXUPLOAD_CHUNK_SIZE=5242880
-FLUXUPLOAD_MAX_FILE_SIZE=5368709120
+FLUXUPLOAD_CHUNK_SIZE=2097152
+FLUXUPLOAD_MAX_FILE_SIZE=26843545600
 FLUXUPLOAD_SESSION_EXPIRATION=24
 FLUXUPLOAD_STORAGE_DISK=local
 FLUXUPLOAD_STORAGE_PATH=fluxupload
@@ -108,7 +110,7 @@ Content-Type: application/json
 {
     "filename": "documento.pdf",
     "total_size": 104857600,
-    "chunk_size": 5242880,
+    "chunk_size": 2097152,
     "mime_type": "application/pdf",
     "hash": "sha256_hash_here" // opcional
 }
@@ -120,8 +122,8 @@ Content-Type: application/json
 {
     "success": true,
     "session_id": "abc123...",
-    "total_chunks": 20,
-    "chunk_size": 5242880,
+    "total_chunks": 50,
+    "chunk_size": 2097152,
     "uploaded_chunks": 0,
     "missing_chunks": [0, 1, 2, ..., 19],
     "progress": 0
@@ -148,7 +150,7 @@ chunk: [archivo binario]
     "session_id": "abc123...",
     "chunk_index": 0,
     "uploaded_chunks": 1,
-    "total_chunks": 20,
+    "total_chunks": 50,
     "progress": 5.0,
     "status": "uploading"
 }
@@ -168,11 +170,11 @@ GET /fluxupload/status/{session_id}
     "session_id": "abc123...",
     "filename": "documento.pdf",
     "status": "uploading",
-    "uploaded_chunks": 10,
-    "total_chunks": 20,
+    "uploaded_chunks": 25,
+    "total_chunks": 50,
     "total_size": 104857600,
     "progress": 50.0,
-    "missing_chunks": [10, 11, 12, ..., 19],
+    "missing_chunks": [25, 26, 27, ..., 49],
     "storage_path": null,
     "error_message": null,
     "expires_at": "2024-01-01T12:00:00Z"
@@ -188,7 +190,7 @@ GET /fluxupload/status/{session_id}
 <script>
 const uploader = new FluxUpload({
     baseUrl: '/fluxupload',
-    chunkSize: 5 * 1024 * 1024, // 5MB
+    chunkSize: 2 * 1024 * 1024, // 2MB (v3.0.0)
     parallelUploads: 3,
     onProgress: (progress) => {
         console.log(`Progress: ${progress.progress}%`);
@@ -246,8 +248,8 @@ $chunkService = FluxUpload::getChunkService();
 $session = $sessionService->createSession([
     'original_filename' => 'archivo.pdf',
     'total_size' => 104857600,
-    'total_chunks' => 20,
-    'chunk_size' => 5242880,
+    'total_chunks' => 50,
+    'chunk_size' => 2097152,
 ]);
 
 // Obtener chunks faltantes
@@ -413,7 +415,7 @@ O con PHPUnit directamente:
     <script>
         const uploader = new FluxUpload({
             baseUrl: '/fluxupload',
-            chunkSize: 5 * 1024 * 1024,
+            chunkSize: 2 * 1024 * 1024, // 2MB (v3.0.0)
             parallelUploads: 3,
             onProgress: (progress) => {
                 document.getElementById('progress').textContent = 
